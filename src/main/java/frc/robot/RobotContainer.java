@@ -9,7 +9,10 @@ import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.ArcadeDrive;
 import frc.robot.commands.AutonomousDistance;
 import frc.robot.commands.AutonomousTime;
+import frc.robot.commands.ShiftingDown;
+import frc.robot.commands.ShiftingUp;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Shifting;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.xrp.XRPOnBoardIO;
@@ -64,7 +67,9 @@ public class RobotContainer {
     userButton
         .onTrue(new PrintCommand("USER Button Pressed"))
         .onFalse(new PrintCommand("USER Button Released"));
-
+    shiftUp.onTrue(new ShiftingUp(s_Shifting));
+    shiftDown.onTrue(new ShiftingDown(s_Shifting));
+    
 //    JoystickButton joystickAButton = new JoystickButton(m_controller, 1);
 //    joystickAButton
 //        .onTrue(new InstantCommand(() -> m_arm.setAngle(45.0), m_arm))
@@ -97,6 +102,6 @@ public class RobotContainer {
    */
   public Command getArcadeDriveCommand() {
     return new ArcadeDrive(
-        m_drivetrain, () -> ((-m_controller.getRawAxis(1)+0.85)/2), () -> (-m_controller.getRawAxis(2)));
+        m_drivetrain, () -> ((-m_controller.getRawAxis(1)+0.85)/2)*(Shifting.gear), () -> (-m_controller.getRawAxis(2))*(Shifting.gear));
   }
 }
