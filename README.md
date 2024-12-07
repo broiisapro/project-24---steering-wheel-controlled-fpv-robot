@@ -68,3 +68,5 @@ The robot follows a **command-based architecture** provided by WPILib, allowing 
 The **robot.java** file initializes the robot, creates the necessary subsystems, and schedules commands to run during teleoperated periods.
 
 ---
+
+readme made with AI assistance
